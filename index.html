@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>SlabSignal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111318;
+  --paper:#efe8d8;
+  --red:#e53238;
+  --blue:#0064d3;
+  --yellow:#f4ae01;
+  --green:#88b719;
+  --mut:#5a5d63;
+  --hair:#ddd6c2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font:400 15px/1.5 'Public Sans',system-ui,sans-serif}
+
+/* ---------- header band ---------- */
+.top{background:var(--ink);color:#fff;padding:18px 20px 0}
+.brand{display:flex;align-items:baseline;justify-content:space-between;max-width:1120px;margin:0 auto;padding-bottom:14px;gap:12px}
+.mark{font:400 24px/1 'Anton',sans-serif;letter-spacing:.03em;text-transform:uppercase}
+.stamp{font:600 10px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#9aa0aa;white-space:nowrap}
+.stripe{display:flex;height:6px;max-width:1120px;margin:0 auto}
+.stripe i{flex:1;display:block}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;max-width:1120px;margin:0 auto}
+.tab{
+  flex:1;border:none;border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  background:#fff;color:var(--ink);cursor:pointer;padding:14px 8px;
+  font:700 12px/1 'Public Sans',sans-serif;letter-spacing:.05em;text-transform:uppercase;transition:.1s;
+}
+.tab:last-child{border-right:none}
+.tab[aria-pressed="true"]{background:var(--ink);color:#fff}
+.tab:focus-visible{outline:2px solid var(--blue);outline-offset:-4px}
+
+/* ---------- grid ---------- */
+main{max-width:1120px;margin:0 auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:16px}
+
+.card{
+  position:relative;border:3px solid var(--ink);background:#fff;
+  display:flex;flex-direction:column;
+  opacity:0;transform:translateY(6px);animation:seat .3s ease forwards;
+}
+@keyframes seat{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.card{animation:none;opacity:1;transform:none}}
+
+.thumb{
+  aspect-ratio:1/1;border-bottom:3px solid var(--ink);background:#f1efe4;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;padding:12px;
+}
+.thumb img{width:100%;height:100%;object-fit:contain;display:block}
+.thumb .noimg{font:400 26px 'Anton',sans-serif;color:#c7c4bb}
+
+.rk{
+  position:absolute;top:-3px;left:-3px;width:36px;height:36px;
+  border:3px solid var(--ink);border-top:none;border-left:none;
+  display:flex;align-items:center;justify-content:center;
+  font:400 15px/1 'Anton',sans-serif;
+}
+
+.cb{padding:12px 13px 13px;display:flex;flex-direction:column;gap:9px;flex:1}
+.cb h3{
+  font:700 12.5px/1.35 'Public Sans',sans-serif;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em;
+}
+
+.metric{display:flex;align-items:baseline;gap:6px}
+.n{font:400 32px/1 'Anton',sans-serif;letter-spacing:.01em}
+.u{font:700 9.5px/1 'IBM Plex Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
+
+.pills{display:flex;flex-wrap:wrap;gap:5px}
+.pill2{font:600 10px/1 'IBM Plex Mono',ui-monospace,monospace;border:2px solid var(--ink);padding:4px 6px;color:var(--ink)}
+
+.row2{display:flex;align-items:center;margin-top:auto;padding-top:9px;border-top:2px solid var(--ink)}
+.pill{font:700 9.5px/1 'IBM Plex Mono',ui-monospace,monospace;text-transform:uppercase;padding:4px 7px;letter-spacing:.05em;border:2px solid var(--ink)}
+
+.card a.hit{position:absolute;inset:0;z-index:1}
+.card:focus-within{outline:3px solid var(--blue);outline-offset:2px}
+
+.empty{grid-column:1/-1;border:3px dashed var(--ink);padding:52px 20px;text-align:center}
+.empty h3{font:400 22px/1.2 'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;margin-bottom:9px}
+.empty p{color:var(--mut);font:500 12.5px/1.6 'Public Sans',sans-serif;max-width:46ch;margin:0 auto}
+.empty code{font:600 11px 'IBM Plex Mono',ui-monospace,monospace;background:var(--hair);padding:2px 5px;border:1px solid var(--ink)}
+
+footer{
+  max-width:1120px;margin:0 auto;padding:16px 20px 30px;border-top:3px solid var(--ink);
+  font:600 10px/1.7 'IBM Plex Mono',ui-monospace,monospace;color:var(--mut);text-align:center;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="mark">SlabSignal</span>
+    <span class="stamp" id="stamp"></span>
+  </div>
+  <div class="stripe"><i style="background:#e53238"></i><i style="background:#0064d3"></i><i style="background:#f4ae01"></i><i style="background:#88b719"></i></div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Choose section">
+  <button class="tab" data-s="bids" aria-pressed="true">Most Bid</button>
+  <button class="tab" data-s="watched" aria-pressed="false">Most Watched</button>
+  <button class="tab" data-s="heat" aria-pressed="false">Trending</button>
+</nav>
+
+<main><div class="grid" id="list"></div></main>
+
+<footer id="foot"></footer>
+
+<script>
+const DATA = {"generated":"2026-08-29T02:05:02+00:00","hours":48,"tracked":["comc_consignment","psa","probstein123","dcsports87","gregmorriscards"],"watched":[{"title":"2024 Bowman Chrome University Ryan Williams Auto 1st Black Refractor #/10 PSA 10","url":"https://www.ebay.com/itm/128047605402?hash=item1dd03b669a:g:~2UAAeSwrj5qkFzF","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/~2UAAeSwrj5qkFzF/s-l225.jpg","auction":true,"ends":"2026-09-02T02:44:36.000Z","price":127.5,"grade":10,"pct":100,"watchers":21},{"title":"Yu-Gi-Oh! TCG 1st Edition Magic Ruler Booster Pack SEALED","url":"https://www.ebay.com/itm/366633024813?hash=item555d07fd2d:g:CjkAAeSwRvdqkMMw","seller":"probstein123","img":"https://i.ebayimg.com/images/g/CjkAAeSwRvdqkMMw/s-l225.jpg","auction":true,"ends":"2026-09-04T04:15:01.000Z","price":0.99,"grade":9,"pct":76,"watchers":16},{"title":"Yu-Gi-Oh! TCG 1st Edition Pharaoh's Booster Pack SEALED","url":"https://www.ebay.com/itm/366633025342?hash=item555d07ff3e:g:nOsAAeSwbp5qkMNt","seller":"probstein123","img":"https://i.ebayimg.com/images/g/nOsAAeSwbp5qkMNt/s-l225.jpg","auction":true,"ends":"2026-09-04T04:18:01.000Z","price":0.99,"grade":9,"pct":71,"watchers":15},{"title":"Yu-Gi-Oh! TCG Blue Eyes White Dragon Booster Pack SEALED","url":"https://www.ebay.com/itm/377452164616?hash=item57e1e6f608:g:y3wAAeSwi55qkMKK","seller":"probstein123","img":"https://i.ebayimg.com/images/g/y3wAAeSwi55qkMKK/s-l225.jpg","auction":true,"ends":"2026-09-04T04:09:01.000Z","price":0.99,"grade":8,"pct":71,"watchers":15},{"title":"Yu-Gi-Oh! TCG 1st Edition Dark Crisis Booster Pack SEALED","url":"https://www.ebay.com/itm/800573504945?hash=itemba65e63db1:g:LCgAAeSwFHNqkML0","seller":"probstein123","img":"https://i.ebayimg.com/images/g/LCgAAeSwFHNqkML0/s-l225.jpg","auction":true,"ends":"2026-09-04T04:12:01.000Z","price":0.99,"grade":7,"pct":67,"watchers":14},{"title":"2025-26 Topps Dylan Harper Class of 25' FoilFractor Rookie RC #1/1 Spurs PSA 9","url":"https://www.ebay.com/itm/128049489781?hash=item1dd0582775:g:CIoAAeSwicVqkcu9","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/CIoAAeSwicVqkcu9/s-l225.jpg","auction":false,"ends":null,"price":4999.99,"grade":7,"pct":57,"watchers":12},{"title":"2022 Topps Stadium Club Chrome Wander Franco Auto RC #SCCBA-WF Rays PSA 10","url":"https://www.ebay.com/itm/128047628751?hash=item1dd03bc1cf:g:MCcAAeSwqlBqkGGM","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/MCcAAeSwqlBqkGGM/s-l225.jpg","auction":true,"ends":"2026-09-02T02:44:34.000Z","price":10.5,"grade":6,"pct":48,"watchers":10},{"title":"Yu-Gi-Oh! TCG Dark Revelation Booster Pack SEALED","url":"https://www.ebay.com/itm/800573519261?hash=itemba65e6759d:g:QtoAAeSw3h9qkMOs","seller":"probstein123","img":"https://i.ebayimg.com/images/g/QtoAAeSw3h9qkMOs/s-l225.jpg","auction":true,"ends":"2026-09-04T04:21:01.000Z","price":1.25,"grade":5,"pct":48,"watchers":10},{"title":"Lot of (10) Pokemon TCG 151 MEW EN Booster Bundles SEALED WITH DISPLAY","url":"https://www.ebay.com/itm/800573349900?hash=itemba65e3e00c:g:vIUAAeSwWkZqkLfo","seller":"probstein123","img":"https://i.ebayimg.com/images/g/vIUAAeSwWkZqkLfo/s-l225.jpg","auction":true,"ends":"2026-09-04T04:10:01.000Z","price":1025.0,"grade":5,"pct":43,"watchers":9},{"title":"Yu-Gi-Oh! TCG 1st Edition Blaze Of Destruction Structure Deck SEALED","url":"https://www.ebay.com/itm/377452176361?hash=item57e1e723e9:g:vnkAAeSwFh9qkMPt","seller":"probstein123","img":"https://i.ebayimg.com/images/g/vnkAAeSwFh9qkMPt/s-l225.jpg","auction":true,"ends":"2026-09-04T04:24:01.000Z","price":0.99,"grade":4,"pct":38,"watchers":8},{"title":"Lot of (2) One Piece TCG OP-11 A Fist Of Divine Speed Booster Boxes SEALED EN","url":"https://www.ebay.com/itm/377452103550?hash=item57e1e6077e:g:tg4AAeSw7F9qkLhc","seller":"probstein123","img":"https://i.ebayimg.com/images/g/tg4AAeSw7F9qkLhc/s-l225.jpg","auction":true,"ends":"2026-09-04T04:13:01.000Z","price":100.0,"grade":4,"pct":33,"watchers":7},{"title":"1932 R114 U.S. Caramel Presidents Near Complete Set (30/31) missing McKinley","url":"https://www.ebay.com/itm/800576178307?hash=itemba660f0883:g:HBwAAeSw2DJqkXNc","seller":"probstein123","img":"https://i.ebayimg.com/images/g/HBwAAeSw2DJqkXNc/s-l225.jpg","auction":false,"ends":null,"price":6000.0,"grade":3,"pct":33,"watchers":7},{"title":"2024-25 Panini Donruss Optic Stephen Curry Fast Break Black Prizm #1/1 BGS 9","url":"https://www.ebay.com/itm/377454242693?hash=item57e206ab85:g:rSsAAeSwl01qkcr-","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/rSsAAeSwl01qkcr-/s-l225.jpg","auction":false,"ends":null,"price":6999.99,"grade":2,"pct":19,"watchers":4},{"title":"1971 Topps Greatest Moments #50 Sam McDowell PSA 9 MINT - Highest Graded!!","url":"https://www.ebay.com/itm/800576171712?hash=itemba660eeec0:g:-w4AAeSwR7pqkXL5","seller":"probstein123","img":"https://i.ebayimg.com/images/g/-w4AAeSwR7pqkXL5/s-l225.jpg","auction":false,"ends":null,"price":3000.0,"grade":2,"pct":14,"watchers":3},{"title":"2023 Pokemon Scarlet & Violet 151 Sealed Booster Bundle Display Box Case","url":"https://www.ebay.com/itm/128049002859?hash=item1dd050b96b:g:y~oAAeSw7RNqkHZO","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/y~oAAeSw7RNqkHZO/s-l225.jpg","auction":false,"ends":null,"price":11499.99,"grade":1,"pct":10,"watchers":2}],"bids":[{"title":"2024 Bowman Chrome University Ryan Williams Auto 1st Black Refractor #/10 PSA 10","url":"https://www.ebay.com/itm/128047605402?hash=item1dd03b669a:g:~2UAAeSwrj5qkFzF","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/~2UAAeSwrj5qkFzF/s-l225.jpg","auction":true,"ends":"2026-09-02T02:44:36.000Z","price":127.5,"grade":10,"pct":100,"bids":16},{"title":"Lot of (10) Pokemon TCG 151 MEW EN Booster Bundles SEALED WITH DISPLAY","url":"https://www.ebay.com/itm/800573349900?hash=itemba65e3e00c:g:vIUAAeSwWkZqkLfo","seller":"probstein123","img":"https://i.ebayimg.com/images/g/vIUAAeSwWkZqkLfo/s-l225.jpg","auction":true,"ends":"2026-09-04T04:10:01.000Z","price":1025.0,"grade":9,"pct":31,"bids":5},{"title":"2022 Topps Stadium Club Chrome Wander Franco Auto RC #SCCBA-WF Rays PSA 10","url":"https://www.ebay.com/itm/128047628751?hash=item1dd03bc1cf:g:MCcAAeSwqlBqkGGM","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/MCcAAeSwqlBqkGGM/s-l225.jpg","auction":true,"ends":"2026-09-02T02:44:34.000Z","price":10.5,"grade":8,"pct":25,"bids":4},{"title":"Lot of (2) One Piece TCG OP-11 A Fist Of Divine Speed Booster Boxes SEALED EN","url":"https://www.ebay.com/itm/377452103550?hash=item57e1e6077e:g:tg4AAeSw7F9qkLhc","seller":"probstein123","img":"https://i.ebayimg.com/images/g/tg4AAeSw7F9qkLhc/s-l225.jpg","auction":true,"ends":"2026-09-04T04:13:01.000Z","price":100.0,"grade":8,"pct":19,"bids":3},{"title":"2025-26 Topps FC Barcelona Team Rivaldo Purple Rainbow Foil #/250","url":"https://www.ebay.com/itm/377452021199?hash=item57e1e4c5cf:g:sFQAAeSwiCJqkKur","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/sFQAAeSwiCJqkKur/s-l225.jpg","auction":true,"ends":"2026-09-02T02:44:28.000Z","price":0.99,"grade":7,"pct":12,"bids":2},{"title":"Yu-Gi-Oh! TCG Dark Revelation Booster Pack SEALED","url":"https://www.ebay.com/itm/800573519261?hash=itemba65e6759d:g:QtoAAeSw3h9qkMOs","seller":"probstein123","img":"https://i.ebayimg.com/images/g/QtoAAeSw3h9qkMOs/s-l225.jpg","auction":true,"ends":"2026-09-04T04:21:01.000Z","price":1.25,"grade":6,"pct":12,"bids":2},{"title":"2025-26 Topps FC Barcelona Team Yaya Toure Purple Rainbow Foil #/250","url":"https://www.ebay.com/itm/128047951784?hash=item1dd040afa8:g:9FQAAeSw1PxqkKur","seller":"dcsports87","img":"https://i.ebayimg.com/images/g/9FQAAeSw1PxqkKur/s-l225.jpg","auction":true,"ends":"2026-09-02T02:44:44.000Z","price":0.99,"grade":5,"pct":6,"bids":1},{"title":"Yu-Gi-Oh! TCG 1st Edition Magic Ruler Booster Pack SEALED","url":"https://www.ebay.com/itm/366633024813?hash=item555d07fd2d:g:CjkAAeSwRvdqkMMw","seller":"probstein123","img":"https://i.ebayimg.com/images/g/CjkAAeSwRvdqkMMw/s-l225.jpg","auction":true,"ends":"2026-09-04T04:15:01.000Z","price":0.99,"grade":4,"pct":6,"bids":1},{"title":"Yu-Gi-Oh! TCG 1st Edition Pharaoh's Booster Pack SEALED","url":"https://www.ebay.com/itm/366633025342?hash=item555d07ff3e:g:nOsAAeSwbp5qkMNt","seller":"probstein123","img":"https://i.ebayimg.com/images/g/nOsAAeSwbp5qkMNt/s-l225.jpg","auction":true,"ends":"2026-09-04T04:18:01.000Z","price":0.99,"grade":3,"pct":6,"bids":1},{"title":"Yu-Gi-Oh! TCG Blue Eyes White Dragon Booster Pack SEALED","url":"https://www.ebay.com/itm/377452164616?hash=item57e1e6f608:g:y3wAAeSwi55qkMKK","seller":"probstein123","img":"https://i.ebayimg.com/images/g/y3wAAeSwi55qkMKK/s-l225.jpg","auction":true,"ends":"2026-09-04T04:09:01.000Z","price":0.99,"grade":3,"pct":6,"bids":1},{"title":"Yu-Gi-Oh! TCG 1st Edition Blaze Of Destruction Structure Deck SEALED","url":"https://www.ebay.com/itm/377452176361?hash=item57e1e723e9:g:vnkAAeSwFh9qkMPt","seller":"probstein123","img":"https://i.ebayimg.com/images/g/vnkAAeSwFh9qkMPt/s-l225.jpg","auction":true,"ends":"2026-09-04T04:24:01.000Z","price":0.99,"grade":2,"pct":6,"bids":1},{"title":"Yu-Gi-Oh! TCG 1st Edition Dark Crisis Booster Pack SEALED","url":"https://www.ebay.com/itm/800573504945?hash=itemba65e63db1:g:LCgAAeSwFHNqkML0","seller":"probstein123","img":"https://i.ebayimg.com/images/g/LCgAAeSwFHNqkML0/s-l225.jpg","auction":true,"ends":"2026-09-04T04:12:01.000Z","price":0.99,"grade":1,"pct":6,"bids":1}],"heat":[]};
+
+const list = document.getElementById('list');
+let section = 'bids';
+
+const EMPTY = {
+  watched: `<h3>Nothing yet</h3><p>No tracked-seller listings with watchers found.<br>
+    Run <code>discover --tracked</code>, then <code>snapshot</code>, then <code>dashboard</code>.</p>`,
+  bids: `<h3>Nothing yet</h3><p>No tracked-seller auctions with bids found.<br>
+    Run <code>discover --tracked</code>, then <code>snapshot</code>, then <code>dashboard</code>.</p>`,
+  heat: `<h3>Nothing trending</h3><p>Nothing has jumped +10 viewers in the last 24h.<br>
+    Needs at least two snapshots roughly a day apart.</p>`,
+};
+
+const ago = iso => {
+  if(!iso) return '';
+  const m = Math.max(0, (Date.now() - new Date(iso)) / 6e4);
+  return m < 60 ? Math.round(m)+'m ago' : m < 1440 ? Math.round(m/60)+'h ago' : Math.round(m/1440)+'d ago';
+};
+const till = iso => {
+  if(!iso) return null;
+  const m = (new Date(iso) - Date.now()) / 6e4;
+  if(m < 0) return null;
+  return m < 60 ? Math.round(m)+'m' : m < 1440 ? Math.round(m/60)+'h' : Math.round(m/1440)+'d';
+};
+
+function tier(grade){
+  if(grade >= 8) return {bg:'var(--red)', fg:'#fff'};
+  if(grade >= 5) return {bg:'var(--yellow)', fg:'var(--ink)'};
+  return {bg:'var(--blue)', fg:'#fff'};
+}
+function metricFor(d){
+  if(section === 'watched') return {v: d.watchers, u: 'watchers'};
+  if(section === 'bids')    return {v: d.bids, u: 'bids'};
+  return {v: '+'+d.dv, u: 'views / 24h'};
+}
+function pillsFor(d){
+  const out = [];
+  if(section === 'heat' && d.watchers) out.push('watchers ' + d.watchers);
+  if(section === 'watched' && d.bids)  out.push('bids ' + d.bids);
+  if(d.price) out.push((d.auction ? 'current bid $' : 'ask $') + Number(d.price).toLocaleString());
+  return out;
+}
+function tagFor(d, end, soon){
+  if(soon)      return {bg:'var(--red)',  fg:'#fff', text: end+' LEFT'};
+  if(d.auction) return {bg:'var(--blue)', fg:'#fff', text: end ? end+' LEFT' : 'AUCTION'};
+  return          {bg:'var(--green)',   fg:'#fff', text:'BUY IT NOW'};
+}
+
+function paint(){
+  const rows = DATA[section] || [];
+
+  if(!rows.length){
+    list.innerHTML = `<div class="empty">${EMPTY[section]}</div>`;
+    return;
+  }
+
+  list.innerHTML = rows.map((d,i) => {
+    const end = till(d.ends);
+    const soon = d.auction && end && (new Date(d.ends)-Date.now())/36e5 < 6;
+    const m = metricFor(d);
+    const pills = pillsFor(d);
+    const rk = tier(d.grade);
+    const tag = tagFor(d, end, soon);
+    return `<article class="card" style="animation-delay:${Math.min(i,14)*22}ms">
+      <a class="hit" href="${d.url}" target="_blank" rel="noopener"
+         aria-label="${(d.title||'').replace(/"/g,'&quot;')}"></a>
+      <div class="thumb">
+        ${d.img ? `<img src="${d.img}" alt="" loading="lazy">` : `<div class="noimg">?</div>`}
+      </div>
+      <div class="rk" style="background:${rk.bg};color:${rk.fg}">${i+1}</div>
+      <div class="cb">
+        <h3>${d.title||'Untitled lot'}</h3>
+        <div class="metric"><span class="n">${m.v}</span><span class="u">${m.u}</span></div>
+        ${pills.length ? `<div class="pills">${pills.map(p=>`<span class="pill2">${p}</span>`).join('')}</div>` : ''}
+        <div class="row2">
+          <span class="pill" style="background:${tag.bg};color:${tag.fg}">${tag.text}</span>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+document.querySelectorAll('.tab').forEach(c => c.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-pressed','false'));
+  c.setAttribute('aria-pressed','true');
+  section = c.dataset.s;
+  paint();
+});
+
+document.getElementById('stamp').textContent =
+  (DATA.hours||48) + 'H WINDOW · ' + ago(DATA.generated);
+document.getElementById('foot').textContent =
+  `${DATA.bids.length} most bid · ${DATA.watched.length} most watched · ${DATA.heat.length} trending · ` +
+  `tracking ${DATA.tracked.length} sellers · tap any card to open on eBay`;
+
+paint();
+</script>
+</body>
+</html>
